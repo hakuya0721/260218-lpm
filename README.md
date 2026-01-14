@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 2026-02-16-backup
 =======
 
@@ -22,6 +23,8 @@ apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install
     xvfb \
     && rm -rf /var/lib/apt/lists/*
 
+=======
+>>>>>>> cf08e87 (Update README.md)
 ## :hammer_and_wrench: Installation
 
 ### Getting Started
@@ -142,4 +145,7 @@ pip install numpy==1.24.4
 pip install gym==0.24.1
 pip install timm==1.0.15
 pip uninstall -y numpy pandas && pip install "numpy<2.0" "pandas<2.0"
+<<<<<<< HEAD
 >>>>>>> b89fd14 (add docker, add new zed config)
+=======
+>>>>>>> cf08e87 (Update README.md)
