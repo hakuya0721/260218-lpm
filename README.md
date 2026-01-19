@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+## Project Page
+
+GitHub Pages overview: https://cognitiveaisystems.github.io/OVSegDT/
+
+>>>>>>> 2174e36 (add docs)
 ## :hammer_and_wrench: Installation
 
 ### Getting Started
