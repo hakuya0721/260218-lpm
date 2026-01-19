@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# 2026-02-16-backup
-=======
-
-apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    bash-completion \
-    build-essential \
-    ca-certificates \
-    cmake \
-    curl \
-    git \
-    htop \
-    libegl1 \
-    libxext6 \
-    libjpeg-dev \
-    libpng-dev  \
-    rsync \
-    tmux \
-    unzip \
-    vim \
-    wget \
-    xvfb \
-    && rm -rf /var/lib/apt/lists/*
-
-=======
->>>>>>> cf08e87 (Update README.md)
 ## :hammer_and_wrench: Installation
 
 ### Getting Started
@@ -127,9 +100,6 @@ python -m ovon.run --run-type train \
 --debug-datapath \
 --exp-config config/experiments/transformer_dagger_ppo_no_segm_loss.yaml
 ```
-<<<<<<< HEAD
->>>>>>> 1c07005 (First commit)
-=======
 
 
 python -m ovon.run --run-type train \
@@ -145,7 +115,3 @@ pip install numpy==1.24.4
 pip install gym==0.24.1
 pip install timm==1.0.15
 pip uninstall -y numpy pandas && pip install "numpy<2.0" "pandas<2.0"
-<<<<<<< HEAD
->>>>>>> b89fd14 (add docker, add new zed config)
-=======
->>>>>>> cf08e87 (Update README.md)
