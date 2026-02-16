@@ -43,7 +43,6 @@ goal_bench.py
 test_yolo.py
 ovon/check_checkpoint_config.py
 *.log
-*.txt
 *.ts
 output*/
 frontier_exploration/
