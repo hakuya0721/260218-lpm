@@ -1,0 +1,54 @@
+# python
+__pycache__/
+*.egg-info/
+.ipynb_checkpoints/
+jupyters/*
+
+# environment
+variables.sh
+.git_local_repo_credentials
+
+# development
+.idea
+.vscode
+
+# data
+data
+
+# logs
+tb/
+train.log
+slurm_logs/
+
+# scripts
+scripts/
+video_dir/
+data/
+detectron2/
+habitat-sim/
+tb/
+frontier_exploration/
+data
+video_dir_seen/
+video_dir_unseen/
+train.sh
+eval.sh
+.git_local_repo_credentials
+output/
+output_only_target_cat/
+runs/
+*.pt
+find_val_unseen_unseen.py
+goal_bench.py
+test_yolo.py
+ovon/check_checkpoint_config.py
+*.log
+*.txt
+*.ts
+output*/
+frontier_exploration/
+detectron2/
+data
+video_dir_*/
+siglip/
+.DS_Store
