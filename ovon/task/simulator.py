@@ -25,7 +25,11 @@ class OVONSim(HabitatSim):
             self.habitat_config.navmesh_settings.agent_max_climb
         )
         navmesh_settings.cell_height = self.habitat_config.navmesh_settings.cell_height
-        navmesh_settings.include_static_objects = False
+        if hasattr(navmesh_settings, "include_static_objects"):
+            navmesh_settings.include_static_objects = False
+        elif hasattr(navmesh_settings, "includeStaticObjects"):
+            navmesh_settings.includeStaticObjects = False
+        # navmesh_settings.include_static_objects = False
         return navmesh_settings
 
     def reconfigure(

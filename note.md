@@ -46,3 +46,53 @@ apt-get install -y libgl1 libglib2.0-0
 pip install ultralytics
 
 cp modeling_llama.py <<PATH_TO_YOUR_CONDA_ENV>/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py
+
+
+
+conda update conda
+conda install -n base -c defaults conda=24.11.1 -y
+conda create -n ovon python=3.8 cmake=3.14.0 -y
+conda activate ovon
+conda install -n ovon habitat-sim=0.2.3 headless -c conda-forge -c aihabitat -y
+conda install -n ovon pytorch==2.2.1 torchvision==0.17.1 torchaudio==2.2.1 pytorch-cuda=11.8 cudatoolkit=11.8 -c pytorch -c nvidia -c conda-forge -y
+echo $CONDA_PREFIX
+export CUDA_HOME='/root/miniconda3/envs/ovon'
+git clone https://github.com/hakuya0721/2026-02-16-yize.git
+cd 2026-02-16-yize/
+pip install -e .
+git clone https://github.com/naokiyokoyama/frontier_exploration.git
+cd frontier_exploration && pip install -e . && cd .. 
+cd habitat-lab
+pip install -e habitat-lab
+pip install -e habitat-baselines
+pip install ftfy regex tqdm GPUtil trimesh seaborn timm scikit-learn einops transformers
+pip install git+https://github.com/openai/CLIP.git
+cd ..
+pip install wheels/wheels/detectron2-0.6+pt2.2.1cu118-cp38-cp38-linux_x86_64.whl
+pip install ultralytics
+apt-get update
+apt-get install -y libegl1 libgl1 libglx-mesa0 libgles2-mesa
+ldconfig -p | grep -E "libEGL\.so\.1"
+python -c "import habitat_sim; print('habitat_sim import ok')"
+pip install ifcfg
+pip install lmdb
+pip install webdataset==0.1.103
+pip install faster_fifo
+
+scp -rP 37518 C:\Users\16545\Downloads\OVSegDT\data root@connect.westc.gpuhub.com:/root/autodl-tmp
+
+python -m ovon.run --run-type train \
+--debug-datapath \
+--exp-config config/experiments/transformer_dagger_ppo_segm_loss.yaml
+
+export DATA_DIR='/root/autodl-tmp/data'
+export MATTERPORT_TOKEN_ID='2c13021de10bd9ba'
+export MATTERPORT_TOKEN_SECRET='1dc3c27504ea13981b90d3f8f1d6a86e'
+python -m habitat_sim.utils.datasets_download \
+  --username $MATTERPORT_TOKEN_ID --password $MATTERPORT_TOKEN_SECRET \
+  --uids hm3d_train_v0.2 \
+  --data-path $DATA_DIR &&
+python -m habitat_sim.utils.datasets_download \
+  --username $MATTERPORT_TOKEN_ID --password $MATTERPORT_TOKEN_SECRET \
+  --uids hm3d_val_v0.2 \
+  --data-path $DATA_DIR
