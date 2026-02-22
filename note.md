@@ -96,3 +96,16 @@ python -m habitat_sim.utils.datasets_download \
   --username $MATTERPORT_TOKEN_ID --password $MATTERPORT_TOKEN_SECRET \
   --uids hm3d_val_v0.2 \
   --data-path $DATA_DIR
+
+
+mv /root/2026-02-16-yize/data /root/2026-02-16-yize/data.bak.$(date +%F_%H%M%S)
+ln -s /root/autodl-tmp/data /root/2026-02-16-yize/data
+ls -l /root/2026-02-16-yize | grep data
+readlink -f /root/2026-02-16-yize/data
+成功后你会看到类似：
+
+lrwxrwxrwx ... data -> /root/autodl-tmp/data
+
+readlink -f 输出 /root/autodl-tmp/data
+
+ export HF_ENDPOINT=https://hf-mirror.com

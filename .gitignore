@@ -27,7 +27,7 @@ data/
 detectron2/
 habitat-sim/
 tb/
-frontier_exploration/
+# frontier_exploration/
 data
 video_dir_seen/
 video_dir_unseen/
@@ -51,3 +51,5 @@ data
 video_dir_*/
 siglip/
 .DS_Store
+*.7z
+data.7z

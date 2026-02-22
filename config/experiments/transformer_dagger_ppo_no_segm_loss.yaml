@@ -52,7 +52,7 @@ habitat:
   dataset:
     type: "OVON-v1"
     split: train
-    data_path: data/datasets/ovon/hm3d/v1/{split}/{split}.json.gz
+    data_path: data/datasets/ovon/hm3d/{split}/{split}.json.gz
   simulator:
     type: "OVONSim-v0"
     navmesh_settings:
@@ -70,11 +70,11 @@ habitat_baselines:
   video_dir: "video_dir"
   test_episode_count: -1
   eval_ckpt_path_dir: "data/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun"
-  num_environments: 4
+  num_environments: 2
   checkpoint_folder: "data/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun"
   trainer_name: "ver_ovon_transformer_custom"
   num_updates: -1
-  total_num_steps: 1000000000
+  total_num_steps: 150000000
   log_interval: 10
   num_checkpoints: 500
   # Force PyTorch to be single threaded as
@@ -145,6 +145,7 @@ habitat_baselines:
     ddppo:
       sync_frac: 0.6
       # The PyTorch distributed backend to use
+      # force_distributed: True
       distrib_backend: NCCL
       # Visual encoder backbone
       pretrained_weights: ./data/DAgRL.pth

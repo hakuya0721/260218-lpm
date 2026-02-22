@@ -53,6 +53,7 @@ examples/images
 
 # Django stuff:
 *.log
+*.7z
 
 # Sphinx documentation
 docs/_build/

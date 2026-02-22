@@ -449,6 +449,9 @@ class VERTrainer(PPOTrainer):
 
         self._init_train(resume_state)
 
+        # >>> ADD HERE
+        self.t_start = time.time()
+
         count_checkpoints = 0
 
         lr_scheduler = LambdaLR(
@@ -568,6 +571,23 @@ class VERTrainer(PPOTrainer):
                 lr_scheduler.step()  # type: ignore
 
             self.num_steps_done = int(self.report_worker.num_steps_done)
+            
+            # --- add: fps/ETA stdout progress ---
+            if rank0_only():
+                total_steps = int(self.config.habitat_baselines.total_num_steps)
+
+                elapsed = time.time() - self.t_start
+                fps = self.num_steps_done / max(elapsed, 1e-6)
+
+                remaining_steps = max(total_steps - self.num_steps_done, 0)
+                eta_sec = remaining_steps / max(fps, 1e-6)
+
+                print(
+                    f"\rsteps {self.num_steps_done:,}/{total_steps:,} | "
+                    f"fps {fps:6.1f} | ETA {eta_sec/3600:6.2f}h",
+                    end="",
+                    flush=True,
+                )
 
             self.num_updates_done += 1
             # checkpoint model

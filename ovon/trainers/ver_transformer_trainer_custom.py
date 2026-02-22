@@ -184,6 +184,18 @@ class VERTransformerTrainer_custom(VERTrainer):
         self.obs_space = observation_space
         self.actor_critic.to(self.device)
 
+        # ==== 这里开始：统计模型参数与显存占用 ====
+        param_bytes = sum(
+            p.numel() * p.element_size() for p in self.actor_critic.parameters()
+        )
+        param_mb = param_bytes / 1024 ** 2
+        logger.info(f"Actor-critic params size: {param_mb:.2f} MB ({param_bytes} bytes)")
+
+        if torch.cuda.is_available():
+            mem_mb = torch.cuda.memory_allocated(self.device) / 1024 ** 2
+            logger.info(f"CUDA memory allocated right after model.to(device): {mem_mb:.2f} MB")
+        # ==== 这里结束 ====
+        
         if (
             self.config.habitat_baselines.rl.ddppo.pretrained_encoder
             or self.config.habitat_baselines.rl.ddppo.pretrained
@@ -586,6 +598,8 @@ class VERTransformerTrainer_custom(VERTrainer):
         Returns:
             None
         """
+        self.t_start = time.time()
+
         policy_cfg = self.config.habitat_baselines.rl.policy
         if not policy_cfg.finetune.enabled:
             return super().train()
@@ -748,6 +762,26 @@ class VERTransformerTrainer_custom(VERTrainer):
                 lr_scheduler.step()  # type: ignore
 
             self.num_steps_done = int(self.report_worker.num_steps_done)
+            
+            if rank0_only():
+                if not hasattr(self, "t_start") or self.t_start is None:
+                    self.t_start = time.time()
+
+            total_steps = int(self.config.habitat_baselines.total_num_steps)
+
+            elapsed = time.time() - self.t_start
+            fps = self.num_steps_done / max(elapsed, 1e-6)
+
+            remaining_steps = max(total_steps - self.num_steps_done, 0)
+            eta_sec = remaining_steps / max(fps, 1e-6)
+
+            if rank0_only():
+                print(
+                    f"\rsteps {self.num_steps_done:,}/{total_steps:,} | "
+                    f"fps {fps:6.1f} | ETA {eta_sec/3600:6.2f}h",
+                    end="",
+                    flush=True,
+                )
 
             self.num_updates_done += 1
             # checkpoint model
