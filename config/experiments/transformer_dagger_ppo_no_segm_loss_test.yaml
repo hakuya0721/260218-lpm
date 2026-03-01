@@ -66,12 +66,12 @@ habitat:
 
 habitat_baselines:
   torch_gpu_id: 0
-  tensorboard_dir: "tb/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun"
+  tensorboard_dir: "tb/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun_test0222"
   video_dir: "video_dir"
   test_episode_count: -1
-  eval_ckpt_path_dir: "data/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun"
+  eval_ckpt_path_dir: "data/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun_test0222"
   num_environments: 28
-  checkpoint_folder: "data/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun"
+  checkpoint_folder: "data/dagger_ppo_ema_stable_no_segm_loss_2gpus_rerun_test0222"
   trainer_name: "ver_ovon_transformer_custom"
   num_updates: -1
   total_num_steps: 150000000

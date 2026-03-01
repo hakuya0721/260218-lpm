@@ -129,7 +129,7 @@ from torch.optim.lr_scheduler import LambdaLR
 
 from ovon.algos.ppo import DDPPO as DDPPOPirlNav
 from ovon.algos.ppo import PPO as PPOPirlNav
-from ovon.algos.dagger_ppo import DAgger_PPO as PPOPirlNav_custom
+from ovon.algos.dagger_ppo import DDPPO_custom as PPOPirlNav_custom #DAgger_PPO
 from ovon.trainers.inference_worker_with_kv import (
     InferenceWorkerWithKV,
     InferenceWorkerWithKVProcess,

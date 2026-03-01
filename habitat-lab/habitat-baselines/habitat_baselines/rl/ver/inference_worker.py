@@ -332,6 +332,34 @@ class InferenceWorkerProcess(ProcessBase):
                 obs[
                     PointNavResNetNet.PRETRAINED_VISUAL_FEATURES_KEY
                 ] = self.visual_encoder(obs)
+            # ====== BEGIN: add history visual feature fusion (HIST=4) ======
+            # HIST = 4
+            # key = PointNavResNetNet.PRETRAINED_VISUAL_FEATURES_KEY
+
+            # if self._static_encoder:
+            #     # 1) encode current frame once: curr [B, D] (siglip D=768)
+            #     curr = self.visual_encoder(obs)
+            #     B, D = curr.shape
+
+            #     # 2) init history buffer: [B, HIST, D]
+            #     if not hasattr(self, "_vis_hist") or self._vis_hist is None or self._vis_hist.shape != (B, HIST, D):
+            #         self._vis_hist = curr.new_zeros((B, HIST, D))
+
+            #     # 3) reset history for done envs using masks (0 means new episode)
+            #     # to_batch["masks"] is already computed earlier in step()
+            #     m = to_batch["masks"].view(B, 1, 1)  # [B,1,1]
+            #     self._vis_hist = self._vis_hist * m
+
+            #     # 4) fuse (simple mean): [B, D]
+            #     # fused contains info from current + last HIST steps
+            #     fused = (curr + self._vis_hist.sum(dim=1)) / float(1 + HIST)
+
+            #     # 5) write fused feature to obs (still [B, D], so RolloutStorage shape unchanged)
+            #     obs[key] = fused
+
+            #     # 6) update history: push curr to front
+            #     self._vis_hist = torch.cat([curr.unsqueeze(1), self._vis_hist[:, :-1, :]], dim=1)
+            #     # ====== END ======
 
                 if self.segm_model is not None:
                     #print("P predicted segmentation:", self.num_updates / 1000)
